@@ -1,0 +1,168 @@
+# Hono.js API Routing Demo - HTTP Tests
+
+# Base URL
+@baseUrl = http://localhost:3000
+
+### Root endpoint
+GET {{baseUrl}}/
+
+//Metrics endpoint
+###
+GET {{baseUrl}}/metrics
+
+//API DOCUMENTATION ENDPOINT
+###
+GET {{baseUrl}}/api
+
+
+
+
+
+
+
+
+
+
+
+
+# AUTH TESTING 
+
+### User Registration
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "first_name": "Test1",
+  "last_name": "User1",
+  "phone_number": "0712345678",
+  "email": "user1@example.com",
+  "password": "password123"
+}
+
+
+### Login to get a token for authenticated requests
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "amrt@254.gmail.com",
+  "password": "Amrit"
+}
+
+
+
+###
+
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joel@gmail.com",
+  "password": "password123"
+}
+
+###
+# USER 
+
+GET {{baseUrl}}/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJmaXJzdF9uYW1lIjoiRXZhbnMiLCJsYXN0X25hbWUiOiJLYXJpdWtpIiwiZW1haWwiOiJhbXJ0QDI1NC5nbWFpbC5jb20iLCJ1c2VyX3R5cGUiOiJhZG1pbiIsImlhdCI6MTc2MTY0NTE0MywiZXhwIjoxNzYxNjQ4NzQzfQ.Jw_rcXDUvHov-VTshJC8NJqLPX0EVCNYWccOVjvf6Cw
+
+
+### Get user by ID
+GET {{baseUrl}}/api/users/4
+
+### Create a new user
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "first_name": "Evans",
+  "last_name": "Kariuki",
+  "email": "amrt@254.gmail.com",
+  "phone_number": "0112178578",
+  "password": "Amrit",
+  "user_type": "admin"
+}
+
+
+
+### Update user
+PUT {{baseUrl}}/api/users/1
+Content-Type: application/json
+
+{
+  "first_name": "Amrit",
+  "last_name": "Kariuki",
+  "email": "amritkhatri254@gmail.com",
+  "phone_number": "0112178578",
+  "password": "Vans"
+}
+
+
+
+### Delete user
+DELETE {{baseUrl}}/api/users/14
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# =TODO TESTING 
+
+# = Get all todos
+###
+GET {{baseUrl}}/api/todos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJmaXJzdF9uYW1lIjoiRXZhbnMiLCJsYXN0X25hbWUiOiJLYXJpdWtpIiwiZW1haWwiOiJhbXJ0QDI1NC5nbWFpbC5jb20iLCJ1c2VyX3R5cGUiOiJhZG1pbiIsImlhdCI6MTc2MTY1NDU0NywiZXhwIjoxNzYxNjU4MTQ3fQ.IitkF2Ih1ByOwpOI5yEGS06kBOPNyD64P4J-k-40Xzk
+# == Get todo by ID
+###
+GET {{baseUrl}}/api/todos/6
+
+#  Create a new todo
+###
+POST {{baseUrl}}/api/todos
+Content-Type: application/json
+
+{
+  "todo_name": "New Todo 22",
+  "description": "This is a new todo",
+  "due_date": "2024-12-31",
+  "user_id": 4
+}
+
+#==== Update todo
+###
+PUT {{baseUrl}}/api/todos/11
+Content-Type: application/json
+
+{
+  "todo_name": "New Todo 111133",
+  "description": "This is a new todo 111133",
+  "due_date": "2025-12-31",
+  "user_id": 4
+}
+
+# == Delete todo
+###
+DELETE {{baseUrl}}/api/todos/12
