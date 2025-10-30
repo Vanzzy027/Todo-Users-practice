@@ -79,41 +79,126 @@ export const updateUser = async (c: Context) => {
 };
 
 
-// update multiple users
+// Update multiple users
 
-// update multiple users
 export const updateUsers = async (c: Context) => {
-    try {
-        const users = await c.req.json(); // expecting array of users
+  try {
+    const users = await c.req.json(); // expecting array of users
 
-        if (!Array.isArray(users) || users.length === 0) {
-            return c.json({ message: 'Invalid or empty user data' }, 400);
-        }
-
-        const results = [];
-        for (const user of users) {
-            const { user_id, first_name, last_name, email, phone_number, password } = user;
-            const updatedUser = await userServices.updateUserService(
-                user_id,
-                first_name,
-                last_name,
-                email,
-                phone_number,
-                password
-            );
-            results.push(updatedUser);
-        }
-
-        return c.json({
-            message: 'Users updated successfully',
-            updatedUsers: results
-        }, 200);
-
-    } catch (error) {
-        console.error('Bulk update error:', error);
-        return c.json({ message: 'Server error', error }, 500);
+    // validate
+    if (!Array.isArray(users) || users.length === 0) {
+      return c.json({ message: 'Invalid or empty user data' }, 400);
     }
+
+    const results = [];
+
+    for (const user of users) {
+      const { user_id, first_name, last_name, email, phone_number, password } = user;
+
+      if (!user_id) continue; // skip invalid entries
+
+      const updatedUser = await userServices.updateUserService(
+        user_id,
+        first_name,
+        last_name,
+        email,
+        phone_number,
+        password
+      );
+
+      results.push(updatedUser);
+    }
+
+    return c.json({
+      message: 'Users updated successfully',
+      updatedUsers: results
+    }, 200);
+
+  } catch (error: any) {
+    console.error('Bulk update error:', error.message);
+    return c.json({ message: 'Server error', error: error.message }, 500);
+  }
 };
+
+
+
+
+
+// // update multiple users
+// export const updateUsers = async (c: Context) => {
+//   try {
+//     const users = await c.req.json();
+
+//     if (!Array.isArray(users) || users.length === 0) {
+//       return c.json({ message: 'Invalid or empty user data' }, 400);
+//     }
+
+//     const results = [];
+//     for (const user of users) {
+//       const { user_id, first_name, last_name, email, phone_number, password } = user;
+//       const updatedUser = await userServices.updateUserService(
+//         user_id,
+//         first_name,
+//         last_name,
+//         email,
+//         phone_number,
+//         password
+//       );
+//       results.push(updatedUser);
+//     }
+
+//     return c.json({
+//       message: 'Users updated successfully',
+//       updatedUsers: results
+//     }, 200);
+
+//   } catch (error) {
+//     console.error('Bulk update error:', error);
+//     return c.json({ message: 'Server error', error }, 500);
+//   }
+// };
+
+
+
+
+
+
+
+
+// update multiple users
+// export const updateUsers = async (c: Context) => {
+//     try {
+//         const users = await c.req.json(); // expecting array of users
+
+//         if (!Array.isArray(users) || users.length === 0) {
+//             return c.json({ message: 'Invalid or empty user data' }, 400);
+//         }
+
+//         const results = [];
+//         for (const user of users) {
+//             const { user_id, first_name, last_name, email, phone_number, password } = user;
+//             const updatedUser = await userServices.updateUserService(
+//                 user_id,
+//                 first_name,
+//                 last_name,
+//                 email,
+//                 phone_number,
+//                 password
+//             );
+//             results.push(updatedUser);
+//         }
+
+//         return c.json({
+//             message: 'Users updated successfully',
+//             updatedUsers: results
+//         }, 200);
+            
+
+//     } catch (error) {
+//         console.error('Bulk update error:', error);
+//         return c.json({ message: 'Server error', error }, 500);
+//     }
+// };
 
 
 

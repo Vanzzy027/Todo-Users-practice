@@ -1,3 +1,5 @@
+
+
 import { rateLimiter } from "hono-rate-limiter";
 
 export const limiter = rateLimiter({
@@ -7,3 +9,16 @@ export const limiter = rateLimiter({
    keyGenerator: () => "<unique_key>", // Method to generate custom identifiers for clients.
   // store: ... , // Redis, MemoryStore, etc. 
 });
+
+
+
+// Before changes:
+
+//import { rateLimiter } from "hono-rate-limiter";
+// export const limiter = rateLimiter({
+//   windowMs: 60 * 60 * 1000, // 1hour
+//   limit: 100, // Limit each IP to 100 requests.
+//   standardHeaders: "draft-6", // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+//    keyGenerator: () => "<unique_key>", // Method to generate custom identifiers for clients.
+//   // store: ... , // Redis, MemoryStore, etc. 
+// });

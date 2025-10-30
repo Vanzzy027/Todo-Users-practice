@@ -16,15 +16,6 @@ GET {{baseUrl}}/api
 
 
 
-
-
-
-
-
-
-
-
-
 # AUTH TESTING 
 
 ### User Registration
@@ -35,7 +26,7 @@ Content-Type: application/json
   "first_name": "Test1",
   "last_name": "User1",
   "phone_number": "0712345678",
-  "email": "user1@example.com",
+  "email": "faith@gmail.com",
   "password": "password123"
 }
 
@@ -51,23 +42,34 @@ Content-Type: application/json
 
 
 
-###
-
+###//Login for a normal user
 POST {{baseUrl}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "joel@gmail.com",
+  "email": "kie@gmail.com",
   "password": "password123"
 }
+
+
+//Login for an updated user(Admin)
+###
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "amritkhari254@gmail.com",
+  "password": "Vans1"
+}
+
+
+
 
 ###
 # USER 
 
 GET {{baseUrl}}/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJmaXJzdF9uYW1lIjoiRXZhbnMiLCJsYXN0X25hbWUiOiJLYXJpdWtpIiwiZW1haWwiOiJhbXJ0QDI1NC5nbWFpbC5jb20iLCJ1c2VyX3R5cGUiOiJhZG1pbiIsImlhdCI6MTc2MTY0NTE0MywiZXhwIjoxNzYxNjQ4NzQzfQ.Jw_rcXDUvHov-VTshJC8NJqLPX0EVCNYWccOVjvf6Cw
-
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJmaXJzdF9uYW1lIjoiRXZhbnMiLCJsYXN0X25hbWUiOiJLYXJpdWtpIiwiZW1haWwiOiJhbXJ0QDI1NC5nbWFpbC5jb20iLCJ1c2VyX3R5cGUiOiJhZG1pbiIsImlhdCI6MTc2MTY3NjgyNywiZXhwIjoxNzYxNjgwNDI3fQ.pq5fbCOiIZ4T3F1VjESK3VYsVoUej-uWmnvGjmGs-Rg
 ### Get user by ID
 GET {{baseUrl}}/api/users/4
 
@@ -76,11 +78,11 @@ POST {{baseUrl}}/api/auth/register
 Content-Type: application/json
 
 {
-  "first_name": "Evans",
-  "last_name": "Kariuki",
-  "email": "amrt@254.gmail.com",
-  "phone_number": "0112178578",
-  "password": "Amrit",
+  "first_name": "Denver",
+  "last_name": "254",
+  "email": "amritkhatri254@.gmail.com",
+  "phone_number": "01121746838",
+  "password": "Denver",
   "user_type": "admin"
 }
 
@@ -93,11 +95,34 @@ Content-Type: application/json
 {
   "first_name": "Amrit",
   "last_name": "Kariuki",
-  "email": "amritkhatri254@gmail.com",
-  "phone_number": "0112178578",
-  "password": "Vans"
+  "email": "amritkhari254@gmail.com",
+  "phone_number": "012178578",
+  "password": "Vans1"
 }
 
+//Trying updating multiple users
+###
+PUT {{baseUrl}}/api/users
+Content-Type: application/json
+
+[
+  {
+    "user_id": 1,
+    "first_name": "Amrit",
+    "last_name": "Kariuki",
+    "email": "amritkhari254@gmail.com",
+    "phone_number": "012178578",
+    "password": "Vans1"
+  },
+  {
+    "user_id": 2,
+    "first_name": "Kie",
+    "last_name": "Brown",
+    "email": "kie@gmail.com",
+    "phone_number": "0712345678",
+    "password": "Kie123"
+  }
+]
 
 
 ### Delete user
@@ -134,7 +159,7 @@ DELETE {{baseUrl}}/api/users/14
 # = Get all todos
 ###
 GET {{baseUrl}}/api/todos
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJmaXJzdF9uYW1lIjoiRXZhbnMiLCJsYXN0X25hbWUiOiJLYXJpdWtpIiwiZW1haWwiOiJhbXJ0QDI1NC5nbWFpbC5jb20iLCJ1c2VyX3R5cGUiOiJhZG1pbiIsImlhdCI6MTc2MTY1NDU0NywiZXhwIjoxNzYxNjU4MTQ3fQ.IitkF2Ih1ByOwpOI5yEGS06kBOPNyD64P4J-k-40Xzk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJmaXJzdF9uYW1lIjoiQW1yaXQiLCJsYXN0X25hbWUiOiJLYXJpdWtpIiwiZW1haWwiOiJhbXJpdGtoYXJpMjU0QGdtYWlsLmNvbSIsInVzZXJfdHlwZSI6ImFkbWluIiwiaWF0IjoxNzYxNjc2OTYyLCJleHAiOjE3NjE2ODA1NjJ9.zYnsRWuDKJSGzFM2ml29f0tV8dA9kwmqbqKI6Wwl-5M
 # == Get todo by ID
 ###
 GET {{baseUrl}}/api/todos/6

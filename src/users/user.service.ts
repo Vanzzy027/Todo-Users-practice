@@ -1,4 +1,5 @@
 import { getDbPool } from "../db/dbconfig.ts"
+import bcrypt from "bcryptjs";  
 
 interface UserResponse {
     user_id: number;
@@ -42,6 +43,65 @@ export const getUserByEmailService = async (email: string): Promise<UserResponse
 
 
 // update user by user_id
+
+
+
+
+
+
+
+// export const updateUserService = async (
+//   user_id: number,
+//   first_name: string,
+//   last_name: string,
+//   email: string,
+//   phone_number: string,
+//   password: string
+// ): Promise<UserResponse | null> => {
+//   try {
+//     const db = getDbPool();
+
+//     // ✅ fixed SQL syntax — OUTPUT must come after SET
+//     const query = `
+//       UPDATE Users
+//       SET first_name = @first_name,
+//           last_name = @last_name,
+//           phone_number = @phone_number,
+//           email = @email,
+//           password = @password
+//       OUTPUT INSERTED.*
+//       WHERE user_id = @user_id
+//     `;
+
+//     // 🧠 debug log (optional — helps trace what’s being updated)
+//     console.log('Updating user:', { user_id, first_name, last_name, email });
+
+//     const result = await db.request()
+//       .input('user_id', user_id)
+//       .input('first_name', first_name)
+//       .input('last_name', last_name)
+//       .input('phone_number', phone_number)
+//       .input('email', email)
+//       .input('password', password)
+//       .query(query);
+
+//     return result.recordset[0] || null;
+
+//   } catch (error: any) {
+//     // 🚨 show SQL-level errors clearly
+//     console.error('SQL Error in updateUserService:', error.message);
+//     console.error('Stack trace:', error.stack);
+//     throw error; // this will be caught by your controller
+//   }
+// };
+
+
+
+
+
+
+
+// update user by user_id with password hashing
 export const updateUserService = async (
   user_id: number,
   first_name: string,
@@ -49,11 +109,14 @@ export const updateUserService = async (
   email: string,
   phone_number: string,
   password: string
-): Promise<UserResponse | null> => {
+) => {
   try {
     const db = getDbPool();
 
-    // ✅ fixed SQL syntax — OUTPUT must come after SET
+    // hash password
+    const saltRounds = 10;
+    const hashedPassword = bcrypt.hashSync(password, saltRounds);
+
     const query = `
       UPDATE Users
       SET first_name = @first_name,
@@ -65,34 +128,22 @@ export const updateUserService = async (
       WHERE user_id = @user_id
     `;
 
-    // 🧠 debug log (optional — helps trace what’s being updated)
-    console.log('Updating user:', { user_id, first_name, last_name, email });
-
     const result = await db.request()
       .input('user_id', user_id)
       .input('first_name', first_name)
       .input('last_name', last_name)
       .input('phone_number', phone_number)
       .input('email', email)
-      .input('password', password)
+      .input('password', hashedPassword)
       .query(query);
 
     return result.recordset[0] || null;
 
   } catch (error: any) {
-    // 🚨 show SQL-level errors clearly
     console.error('SQL Error in updateUserService:', error.message);
-    console.error('Stack trace:', error.stack);
-    throw error; // this will be caught by your controller
+    throw error;
   }
 };
-
-
-
-
-
-
-
 
 
 

@@ -18,6 +18,9 @@ userRoutes.get('/users/:user_id', userControllers.getUserById)
 // Update user by user_id
 userRoutes.put('/users/:user_id', userControllers.updateUser)
 
+// Update multiple users
+userRoutes.put('/users', userControllers.updateUsers);
+
 // Delete user by user_id
 userRoutes.delete('/users/:user_id', userControllers.deleteUser)
 
